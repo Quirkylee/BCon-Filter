@@ -1,0 +1,16 @@
+name: BCon
+main: org.jaggy.bukkit.bcon.Bcon
+version: 1.0
+author: matthewl6970
+commands:
+ bcon:
+  description: Sets the command you want to run when enabled.
+  usage: /<command> <add|rem|list>
+  alias: [bc]
+permissions:
+ combow.add:
+  description: Allows to add filters.
+ combow.rem:
+  description: Allows to remove filters.
+ combow.list:
+  description: Allows to list filters.
