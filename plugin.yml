@@ -1,6 +1,6 @@
 name: BCon
 main: org.jaggy.bukkit.bcon.Bcon
-version: 1.0
+version: 1.1
 author: matthewl6970
 commands:
  bcon:
@@ -8,9 +8,11 @@ commands:
   usage: /<command> <add|rem|list>
   alias: [bc]
 permissions:
- combow.add:
+ bcon.add:
   description: Allows to add filters.
- combow.rem:
+ bcon.rem:
   description: Allows to remove filters.
- combow.list:
+ bcon.list:
   description: Allows to list filters.
+ bcon.bypass:
+  description: Allows players to bypass filter check.

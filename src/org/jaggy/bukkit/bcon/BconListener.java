@@ -29,6 +29,7 @@ public class BconListener implements Listener {
 	@EventHandler()
 	public void onConnect(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
+		if(player.hasPermission("bcon.bypass")) return;
 		if(BconStack.compare(player.getName())) {
 			event.disallow(org.bukkit.event.player.PlayerLoginEvent.Result.KICK_OTHER, 
 					"[BCon] Your not allowed to join the server.");
