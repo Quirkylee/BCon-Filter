@@ -1,0 +1,10 @@
+1.2:
+ 3/25/2012:
+  - Fixed rem command. do to it not removing the filters.
+  - Cleaned up command routines and added console support. 
+
+1.1:
+ 3/24/2012:
+   - Added the bcon.bypass permission and fixed plugin.yml permissions.
+   - add logic to test if the command args is >=1 to restore root help text. 
+   - started this change log. Previous features won't be listed here. 

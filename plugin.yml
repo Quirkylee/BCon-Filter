@@ -1,6 +1,6 @@
 name: BCon
 main: org.jaggy.bukkit.bcon.Bcon
-version: 1.2
+version: 0.5
 author: matthewl6970
 commands:
  bcon:
