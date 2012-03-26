@@ -43,8 +43,9 @@ public class BconStack implements Runnable {
 	}
 	public static void remFilter(String str) {
 		
-		stack.remove(str.toLowerCase());
+		stack.remove(str);
 	}
+	
 	private static boolean isInteger( String input )
 	{
 	   try

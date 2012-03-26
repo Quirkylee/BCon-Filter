@@ -29,67 +29,116 @@ public class CmdBCon implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
-		Player player = (Player)sender;
-		if(args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("rem") || args[0].equalsIgnoreCase("list")) {
-		if( !player.hasPermission("bcon.add") ) {
-			player.sendMessage(ChatColor.RED + "You are not allowed to use this command.");
-			return true;
-		} else {
+		if(args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("rem") 
+				|| args[0].equalsIgnoreCase("list") || args.length >= 1) {
+			
 			if(args[0].equalsIgnoreCase("add")) {
-				if(args.length < 2) {
-					player.sendMessage(ChatColor.YELLOW + "Usage: /bcon add <filter>.");
-					player.sendMessage(ChatColor.YELLOW + "%n = All Numerical playername");
+				if(!(sender instanceof Player)){
+					//console command support
+					add(sender, args);
 				} else {
-					String str = "";
-					for(int i = 1; i < args.length; i++) str += args[i];
-					BconStack.addFilter(str);
-					plugin.log(player.getName() + " added to filters:" + str);
-					player.sendMessage(ChatColor.GREEN + "[Bcon] added to filters: " + str);
+					//in game support
+				
+					Player player = (Player) sender;
+					if( !player.hasPermission("bcon.add") ) {
+						player.sendMessage(ChatColor.RED + "You are not allowed to use this command.");
+						
+					} else {
+						add(sender, args);
+					}
 				}
-			return true;		
 			}
-		}
-		if( !player.hasPermission("bcon.rem") ) {
-			player.sendMessage(ChatColor.RED + "You are not allowed to use this command.");
-			return true;
-		} else {
+			
+			
 			if(args[0].equalsIgnoreCase("rem")) {
-				if(args.length < 2) {
-					player.sendMessage(ChatColor.YELLOW + "Usage: /bcon rem <filter>.");
+				if(!(sender instanceof Player)){
+					//console command support
+					rem(sender, args);
 				} else {
-					String str = "";
-					for(int i = 1; i < args.length; i++) str += args[i];
-					BconStack.addFilter(str);
-					plugin.log(player.getName() + " removed to filters:" + str);
-					player.sendMessage(ChatColor.GREEN + "[Bcon] removed to filters: " + str);
+					//in game support
+					Player player = (Player) sender;
+					if( !player.hasPermission("bcon.rem") ) {
+						player.sendMessage(ChatColor.RED + "You are not allowed to use this command.");	
+					} else {
+						rem(sender, args);
+					}
 				}
-			return true;		
 			}
-		}
-		if( !player.hasPermission("bcon.list") ) {
-			player.sendMessage(ChatColor.RED + "You are not allowed to use this command.");
-			return true;
-		} else {
+			
 			if(args[0].equalsIgnoreCase("list")) {
-				if(args.length > 2) {
-					player.sendMessage(ChatColor.YELLOW + "Usage: /bcon list");
+				if(!(sender instanceof Player)){
+					//console command support
+					list(sender, args);
 				} else {
-					String str = "";
-					for(int i = 1; i < args.length; i++) str += args[i];
-					str = BconStack.list(str);
-					
-					player.sendMessage(ChatColor.GREEN + "[Bcon] " + str);
+					//in game support
+					Player player = (Player) sender;
+					if( !player.hasPermission("bcon.list") ) {
+						player.sendMessage(ChatColor.RED + "You are not allowed to use this command.");	
+					} else {
+						list(sender, args);
+					}
 				}
-			return true;		
+				
 			}
-		}
+			return true;
 		} else {
-			player.sendMessage(ChatColor.YELLOW + "Usage: /<command> <add|rem|list> <filter>");
-			player.sendMessage(ChatColor.YELLOW + "List does not require a filter.");
+			sender.sendMessage(ChatColor.YELLOW + "Usage: /<command> <add|rem|list> <filter>");
+			sender.sendMessage(ChatColor.YELLOW + "List does not require a filter.");
 			return true;
 		}
-		return false;
 	}
-
 	
+	
+	/**
+	 * Adds filter rule into memory
+	 * @param sender
+	 * @param args
+	 */
+	public void add(CommandSender sender, String[] args) {
+		if(args.length < 2) {
+			sender.sendMessage(ChatColor.YELLOW + "Usage: /bcon add <filter>.");
+			sender.sendMessage(ChatColor.YELLOW + "%n = All Numerical playername");
+		} else {
+			String str = "";
+			for(int i = 1; i < args.length; i++) str += args[i];
+			BconStack.addFilter(str);
+			if(sender instanceof Player) plugin.log(sender.getName() + " added to filters:" + str);
+			sender.sendMessage(ChatColor.GREEN + "[Bcon] added to filters: " + str);
+		}
+	}
+	
+	
+	/**
+	 * Removes filter rule from memory.
+	 * @param sender
+	 * @param args
+	 */
+	public void rem(CommandSender sender, String[] args) {
+		if(args.length < 2) {
+			sender.sendMessage(ChatColor.YELLOW + "Usage: /bcon rem <filter>.");
+		} else {
+			String str = "";
+			for(int i = 1; i < args.length; i++) str += args[i];
+			BconStack.remFilter(str);
+			if(sender instanceof Player) plugin.log(sender.getName() + " removed to filters:" + str);
+			sender.sendMessage(ChatColor.GREEN + "[Bcon] removed to filters: " + str);
+		}
+	}
+	
+	
+	/**
+	 * Lists filter Rules in memory
+	 * @param sender
+	 * @param args
+	 */
+	public void list(CommandSender sender, String[] args) {
+		if(args.length > 2) {
+			sender.sendMessage(ChatColor.YELLOW + "Usage: /bcon list");
+		} else {
+			String str = "";
+			for(int i = 1; i < args.length; i++) str += args[i];
+			str = BconStack.list(str);
+			sender.sendMessage(ChatColor.GREEN + "[Bcon] list: " + str);
+		}
+	}
 }
