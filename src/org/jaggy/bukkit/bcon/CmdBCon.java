@@ -102,14 +102,14 @@ public class CmdBCon implements CommandExecutor {
 			if(args[0].equalsIgnoreCase("save")) {
 				if(!(sender instanceof Player)){
 					//console command support
-					load(sender);
+					save(sender);
 				} else {
 					//in game support
 					Player player = (Player) sender;
 					if( !player.hasPermission("bcon.save") ) {
 						player.sendMessage(ChatColor.RED + "You are not allowed to use this command.");	
 					} else {
-						load(sender);
+						save(sender);
 					}
 				}
 				
