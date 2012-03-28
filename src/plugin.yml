@@ -5,7 +5,7 @@ author: matthewl6970
 commands:
  bcon:
   description: Sets the command you want to run when enabled.
-  usage: /<command> <add|rem|list>
+  usage: /<command> <add|rem|list|save|load>
   alias: [bc]
 permissions:
  bcon.add:
@@ -14,5 +14,9 @@ permissions:
   description: Allows to remove filters.
  bcon.list:
   description: Allows to list filters.
+ bcon.load:
+  description: Allows to load filters.
+ bcon.save:
+  description: Allows to save filters.
  bcon.bypass:
   description: Allows players to bypass filter check.

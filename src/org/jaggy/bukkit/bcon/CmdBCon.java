@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package org.jaggy.bukkit.bcon;
 
+import java.io.IOException;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -80,6 +82,38 @@ public class CmdBCon implements CommandExecutor {
 				}
 				
 			}
+			
+			if(args[0].equalsIgnoreCase("load")) {
+				if(!(sender instanceof Player)){
+					//console command support
+					load(sender);
+				} else {
+					//in game support
+					Player player = (Player) sender;
+					if( !player.hasPermission("bcon.load") ) {
+						player.sendMessage(ChatColor.RED + "You are not allowed to use this command.");	
+					} else {
+						load(sender);
+					}
+				}
+				
+			}
+			
+			if(args[0].equalsIgnoreCase("save")) {
+				if(!(sender instanceof Player)){
+					//console command support
+					load(sender);
+				} else {
+					//in game support
+					Player player = (Player) sender;
+					if( !player.hasPermission("bcon.save") ) {
+						player.sendMessage(ChatColor.RED + "You are not allowed to use this command.");	
+					} else {
+						load(sender);
+					}
+				}
+				
+			}
 			return true;
 		} else {
 			sender.sendMessage(ChatColor.YELLOW + "Usage: /<command> <add|rem|list> <filter>");
@@ -122,6 +156,30 @@ public class CmdBCon implements CommandExecutor {
 			BconStack.remFilter(str);
 			if(sender instanceof Player) plugin.log(sender.getName() + " removed to filters:" + str);
 			sender.sendMessage(ChatColor.GREEN + "[Bcon] removed to filters: " + str);
+		}
+	}
+	
+	public void save(CommandSender sender) {
+		try {
+			BconStack.save();
+			if(sender instanceof Player) plugin.log(sender.getName() + " saved filters.");
+			sender.sendMessage(ChatColor.GREEN + "[Bcon] saved filters.");
+		} catch (IOException e) {
+			if(sender instanceof Player) plugin.log("Failed to save filters.");
+			sender.sendMessage(ChatColor.GREEN + "[Bcon] Failed to save filters.");
+			e.printStackTrace();
+		}
+	}
+	
+	public void load(CommandSender sender) {
+		try {
+			BconStack.load();
+			if(sender instanceof Player) plugin.log(sender.getName() + " loaded filters.");
+			sender.sendMessage(ChatColor.GREEN + "[Bcon] Loaded filters.");
+		} catch (IOException e) {
+			if(sender instanceof Player) plugin.log("Failed to load filters.");
+			sender.sendMessage(ChatColor.GREEN + "[Bcon] Failed to load filters.");
+			e.printStackTrace();
 		}
 	}
 	
