@@ -22,18 +22,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.jaggy.bukkit.bcon.config.Config;
 
 
 public class BconListener implements Listener {
-
 	@EventHandler()
 	public void onConnect(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
 		if(player.hasPermission("bcon.bypass")) return;
 		if(BconStack.compare(player.getName())) {
 			event.disallow(org.bukkit.event.player.PlayerLoginEvent.Result.KICK_OTHER, 
-					"[BCon] Your not allowed to join the server.");
+					Config.defaultKickMsg);
 		}
 		
 	}
+
 }

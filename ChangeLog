@@ -1,3 +1,7 @@
+1.3:
+ 3/27/2012:
+  - Added config system.
+  - Corrected data folder. You might need to move the filter.txt 
 1.2:
  3/25/2012:
   - Fixed rem command. do to it not removing the filters.

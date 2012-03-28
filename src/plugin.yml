@@ -1,0 +1,18 @@
+name: BCon
+main: org.jaggy.bukkit.bcon.Bcon
+version: 1.3
+author: matthewl6970
+commands:
+ bcon:
+  description: Sets the command you want to run when enabled.
+  usage: /<command> <add|rem|list>
+  alias: [bc]
+permissions:
+ bcon.add:
+  description: Allows to add filters.
+ bcon.rem:
+  description: Allows to remove filters.
+ bcon.list:
+  description: Allows to list filters.
+ bcon.bypass:
+  description: Allows players to bypass filter check.

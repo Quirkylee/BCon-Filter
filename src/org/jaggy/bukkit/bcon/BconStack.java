@@ -42,7 +42,6 @@ public class BconStack implements Runnable {
 		   }
 	}
 	public static void remFilter(String str) {
-		
 		stack.remove(str);
 	}
 	
@@ -76,12 +75,12 @@ public class BconStack implements Runnable {
 		return false;
 	}
 	public static void load() throws IOException {
-		File Folder = new File("plugins/Bcon Filter");
-		File file = new File("plugins/Bcon Filter/filters.txt");
+		File Folder = new File("plugins/Bcon");
+		File file = new File("plugins/Bcon/filters.txt");
 		if(!Folder.exists()) Folder.mkdir();
 		if(file.exists()) {
 			
-			FileInputStream fstream = new FileInputStream("plugins/Bcon Filter/filters.txt");
+			FileInputStream fstream = new FileInputStream("plugins/Bcon/filters.txt");
 			
 			  DataInputStream in = new DataInputStream(fstream);
 			  BufferedReader br = new BufferedReader(new InputStreamReader(in)); 
@@ -107,11 +106,11 @@ public class BconStack implements Runnable {
 	}
 	
 	public static void save() throws IOException {
-		File Folder = new File("plugins/Bcon Filter");
-		File file = new File("plugins/Bcon Filter/filters.txt");
+		File Folder = new File("plugins/Bcon");
+		File file = new File("plugins/Bcon/filters.txt");
 		if(!Folder.exists()) Folder.mkdir();
 		if(!file.exists()) file.createNewFile();
-		BufferedWriter bw = new BufferedWriter(new FileWriter("plugins/Bcon Filter/filters.txt"));
+		BufferedWriter bw = new BufferedWriter(new FileWriter("plugins/Bcon/filters.txt"));
 		for(int i = 0; i < stack.size(); i++) {
 			String s = stack.get(i);
 			bw.write(s);

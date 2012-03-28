@@ -18,11 +18,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package org.jaggy.bukkit.bcon;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jaggy.bukkit.bcon.config.YMLFile;
+
+import org.jaggy.bukkit.bcon.config.Config;
 
 /*
 BCon Filter: Blocks players from connecting to a bukkit server.
@@ -43,8 +47,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 public class Bcon extends JavaPlugin {
 	private static final Logger log = Logger.getLogger("Minecraft");
+	private Config config;
 	
 	public void onEnable() {
+		loadConfig();
 		try {
 			BconStack.load();
 		} catch (IOException e) {
@@ -68,4 +74,24 @@ public class Bcon extends JavaPlugin {
 	public void log(String msg) {
 		log.info("[BCon] "+msg);
 	}
+	
+	public void loadConfig() {
+		File File = new File("plugins/Bcon/config.yml");
+		if( File.exists() ) {		// new-style config.yml exists?  use it
+    		config = new YMLFile();
+    	} else {							// neither exists yet (new installation), create and use new-style
+    		this.saveDefaultConfig();
+    		config = new YMLFile();
+    	}
+    	
+    	try {
+    		config.load(this);
+    	}
+    	catch(Exception e) {
+            log("an error occured while trying to load the config file.");
+    		e.printStackTrace();
+    	}
+	}
+	
+	
 }
